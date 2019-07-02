@@ -2,8 +2,10 @@ package lg.games.pong.game
 
 import android.content.Context
 import android.graphics.Canvas
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import lg.games.pong.component.Board
 
 /**
  * This class holds the view over the game.
@@ -14,6 +16,11 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback 
      * Main thread running the game.
      */
     private val thread: GameThread
+
+    /**
+     * Board holding the components of the game.
+     */
+    private lateinit var board: Board
 
     /**
      * Add the class to the callback in order to intercept events.
@@ -50,6 +57,7 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback 
      * Called after the view is created. Starts the [thread].
      */
     override fun surfaceCreated(holder: SurfaceHolder?) {
+        board = Board(width, height)
         thread.running = true
         thread.start()
     }
@@ -58,7 +66,10 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback 
      * Updates the inputs and physics of the game.
      */
     fun update() {
-        // TODO
+        if (this::board.isInitialized) {
+            board.updateInput()
+            board.updatePhysics()
+        }
     }
 
     /**
@@ -66,6 +77,9 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback 
      */
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
+        if (this::board.isInitialized) {
+            board.updateGraphics(canvas)
+        }
     }
 
 }
