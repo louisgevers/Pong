@@ -15,6 +15,11 @@ class Board(width: Int, height: Int) {
     val point1 = Point(width, height)
 
     /**
+     * Represents the ball object on the board.
+     */
+    val ball = Ball(Point(width/2, height/2))
+
+    /**
      * Update the components with input events.
      */
     fun updateInput() {
@@ -25,14 +30,14 @@ class Board(width: Int, height: Int) {
      * Update the physics of the components.
      */
     fun updatePhysics() {
-        // TODO update physics of components
+        ball.updatePhysics(this)
     }
 
     /**
      * Update the graphics of the components on the [canvas].
      */
     fun updateGraphics(canvas: Canvas) {
-        // TODO update graphics of components
+        ball.updateGraphics(canvas)
     }
 
 }
