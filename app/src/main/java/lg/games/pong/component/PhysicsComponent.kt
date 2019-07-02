@@ -17,21 +17,18 @@ class PhysicsComponent(private val radius: Int) {
      * Checks for collisions and updates the direction vector beforehand.
      */
     fun update(obj: GameObject, board: Board) {
-        if (collideWall(obj.coordinate.x, vector.dx, board.point0.x, board.point1.x)) {
+        val x = obj.coordinate.x
+        val y = obj.coordinate.y
+        val dx = vector.dx
+        val dy = vector.dy
+        if (x - radius + dx < board.point0.x || x + radius + dx > board.point1.x) {
             vector.dx = -vector.dx
         }
-        if (collideWall(obj.coordinate.y, vector.dy, board.point0.y, board.point1.y)) {
+        if (x + dx - board.paddle.coordinate.x in -board.paddle.width/2..board.paddle.width/2 &&
+                y + dy - board.paddle.coordinate.y in -board.paddle.height/2..board.paddle.height/2) {
             vector.dy = -vector.dy
         }
         obj.coordinate.x += vector.dx
         obj.coordinate.y += vector.dy
     }
-
-    /**
-     * Checks whether the given position and speed collides with the borders.
-     */
-    private fun collideWall(x: Int, dx: Int, x0: Int, x1: Int): Boolean {
-        return (x - radius + dx < x0 || x + radius + dx > x1)
-    }
-
 }

@@ -1,6 +1,8 @@
 package lg.games.pong.component
 
 import android.graphics.Canvas
+import android.view.MotionEvent
+import java.util.*
 
 class Board(width: Int, height: Int) {
 
@@ -20,10 +22,17 @@ class Board(width: Int, height: Int) {
     val ball = Ball(Point(width/2, height/2))
 
     /**
+     * Represents the player's paddle object on the board.
+     */
+    val paddle = Paddle(Point(width/2, 9*height/10), width/5, height/64)
+
+    /**
      * Update the components with input events.
      */
-    fun updateInput() {
-        // TODO update input of components
+    fun updateInput(events: LinkedList<MotionEvent>) {
+        for (event in events) {
+            paddle.updateInput(event)
+        }
     }
 
     /**
@@ -38,6 +47,7 @@ class Board(width: Int, height: Int) {
      */
     fun updateGraphics(canvas: Canvas) {
         ball.updateGraphics(canvas)
+        paddle.updateGraphics(canvas)
     }
 
 }

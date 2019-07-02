@@ -3,9 +3,11 @@ package lg.games.pong.game
 import android.content.Context
 import android.graphics.Canvas
 import android.util.Log
+import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import lg.games.pong.component.Board
+import java.util.*
 
 /**
  * This class holds the view over the game.
@@ -21,6 +23,8 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback 
      * Board holding the components of the game.
      */
     private lateinit var board: Board
+
+    private val events = LinkedList<MotionEvent>()
 
     /**
      * Add the class to the callback in order to intercept events.
@@ -67,9 +71,10 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback 
      */
     fun update() {
         if (this::board.isInitialized) {
-            board.updateInput()
+            board.updateInput(events)
             board.updatePhysics()
         }
+        events.clear()
     }
 
     /**
@@ -80,6 +85,11 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback 
         if (this::board.isInitialized) {
             board.updateGraphics(canvas)
         }
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        events.add(event)
+        return true
     }
 
 }
