@@ -3,6 +3,7 @@ package lg.games.pong.component
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import lg.games.pong.entity.GameObject
 
 /**
  * This interface is responsible for drawing a specified [GameObject]

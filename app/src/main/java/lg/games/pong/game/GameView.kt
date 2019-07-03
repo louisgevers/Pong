@@ -2,11 +2,10 @@ package lg.games.pong.game
 
 import android.content.Context
 import android.graphics.Canvas
-import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import lg.games.pong.component.Board
+import lg.games.pong.entity.Board
 import java.util.*
 
 /**

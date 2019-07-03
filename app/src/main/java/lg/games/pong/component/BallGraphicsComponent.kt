@@ -1,8 +1,7 @@
 package lg.games.pong.component
 
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import lg.games.pong.entity.GameObject
 
 /**
  * This class is a [GraphicsComponent] for the [Ball] object. It is responsible

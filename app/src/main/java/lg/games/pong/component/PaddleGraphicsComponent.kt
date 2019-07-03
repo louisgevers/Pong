@@ -1,6 +1,7 @@
 package lg.games.pong.component
 
 import android.graphics.Canvas
+import lg.games.pong.entity.GameObject
 
 /**
  * This class is responsible to draw a paddle on the canvas. It does so by drawing

@@ -1,6 +1,8 @@
-package lg.games.pong.component
+package lg.games.pong.entity
 
 import android.graphics.Canvas
+import lg.games.pong.component.GraphicsComponent
+import lg.games.pong.component.Point
 
 /**
  * This class represents an object in the game with a coordinate

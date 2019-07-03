@@ -1,22 +1,19 @@
-package lg.games.pong.component
+package lg.games.pong.entity
 
 import android.view.MotionEvent
+import lg.games.pong.component.InputComponent
+import lg.games.pong.component.Point
 
 /**
  * This class represents the paddle object of the player. It follows the
  * touch of the user on the screen and collides with the [Ball].
  */
-class Paddle(initialPoint: Point, val width: Int, val height: Int) : GameObject(initialPoint) {
+class Player(initialPoint: Point, width: Int, height: Int) : Paddle(initialPoint, width, height, Position.BOTTOM) {
 
     /**
      * Component responsible to process user input.
      */
     private val eventComponent = InputComponent()
-
-    /**
-     * Component responsible to render the paddle on the canvas.
-     */
-    override val graphicsComponent = PaddleGraphicsComponent(width, height)
 
     /**
      * Update the paddle with given event.

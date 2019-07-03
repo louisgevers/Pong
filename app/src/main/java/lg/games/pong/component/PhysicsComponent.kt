@@ -1,5 +1,9 @@
 package lg.games.pong.component
 
+import lg.games.pong.entity.Board
+import lg.games.pong.entity.GameObject
+import lg.games.pong.entity.Paddle
+
 /**
  * This class is responsible to compute the physics
  * of the [Ball] class. It detects collisions and updates
@@ -24,11 +28,22 @@ class PhysicsComponent(private val radius: Int) {
         if (x - radius + dx < board.point0.x || x + radius + dx > board.point1.x) {
             vector.dx = -vector.dx
         }
-        if (x + dx - board.paddle.coordinate.x in -board.paddle.width/2..board.paddle.width/2 &&
-                y + dy - board.paddle.coordinate.y in -board.paddle.height/2..board.paddle.height/2) {
+        if (collidesWithPaddle(x, y, dx, dy, board.paddle) || collidesWithPaddle(x, y, dx, dy, board.ai)) {
             vector.dy = -vector.dy
         }
         obj.coordinate.x += vector.dx
         obj.coordinate.y += vector.dy
+    }
+
+    /**
+     * Check whether the given position and direction collides with the given paddle. A ball
+     * can only collide with a paddle on one side of the paddle (so depending whether it is on
+     * top or bottom of the board.
+     */
+    private fun collidesWithPaddle(x: Int, y: Int, dx: Int, dy: Int, paddle: Paddle): Boolean {
+        return x + dx - paddle.coordinate.x in -paddle.width/2-radius..paddle.width/2+radius &&
+                y + dy - paddle.coordinate.y in -paddle.height/2-radius..paddle.height/2+radius &&
+                ((paddle.position == Paddle.Position.TOP && dy < 0) ||
+                        (paddle.position == Paddle.Position.BOTTOM && dy > 0))
     }
 }

@@ -1,4 +1,6 @@
-package lg.games.pong.component
+package lg.games.pong.entity
+
+import lg.games.pong.component.*
 
 /**
  * This class represents the ball object of the game.
